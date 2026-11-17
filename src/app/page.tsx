@@ -37,12 +37,16 @@ export default function HomePage() {
             </div>
           </div>
           <div className="relative flex justify-center">
-            <div className="w-full max-w-md h-[420px] bg-[#E8EBDD] rounded-2xl shadow-xl flex items-center justify-center border border-[#56734A]/20 overflow-hidden relative">
-              <div className="absolute inset-0 bg-gradient-to-tr from-[#25452D]/20 to-transparent flex items-center justify-center p-8 text-center">
-                <div className="space-y-3">
-                  <span className="font-['Cormorant_Garamond'] text-3xl font-bold text-[#25452D]">GLOWIA BOTANICALS</span>
-                  <p className="text-xs tracking-wider text-[#56734A] uppercase">Pure Ingredients & Specialist Care</p>
-                </div>
+            <div className="w-full max-w-md h-[460px] rounded-2xl shadow-2xl flex items-center justify-center border border-[#56734A]/20 overflow-hidden relative group">
+              <img
+                src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=1000&auto=format&fit=crop&q=80"
+                alt="Glowia Botanicals Skincare & Wellness"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#202820]/80 via-[#202820]/25 to-transparent flex flex-col justify-end p-8 text-white">
+                <span className="text-[10px] tracking-widest text-[#E8EBDD] uppercase font-semibold">Specialist Care • Kallakurichi</span>
+                <span className="font-['Cormorant_Garamond'] text-3xl font-bold text-white">GLOWIA BOTANICALS</span>
+                <p className="text-xs text-[#E8EBDD]/90 mt-1">Holistic Siddha Formulations & Pure Herb Infusions</p>
               </div>
             </div>
           </div>
@@ -67,20 +71,50 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { name: 'Skin Care', slug: 'skin-care', desc: 'Nourishing cleansers, serums & daily moisturizers' },
-              { name: 'Hair Care', slug: 'hair-care', desc: 'Traditional hair oils, herbal washes & repair masks' },
-              { name: "Women's Health", slug: 'womens-health', desc: 'Hormonal balance blends & personal care essentials' },
-              { name: 'Holistic Wellness', slug: 'holistic-wellness', desc: 'Calming herbal teas & aromatherapy self-care kits' }
+              { 
+                name: 'Skin Care', 
+                slug: 'skin-care', 
+                desc: 'Nourishing cleansers, serums & daily moisturizers',
+                image: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=800&auto=format&fit=crop&q=80'
+              },
+              { 
+                name: 'Hair Care', 
+                slug: 'hair-care', 
+                desc: 'Traditional hair oils, herbal washes & repair masks',
+                image: 'https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=800&auto=format&fit=crop&q=80'
+              },
+              { 
+                name: "Women's Health", 
+                slug: 'womens-health', 
+                desc: 'Hormonal balance blends & personal care essentials',
+                image: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&auto=format&fit=crop&q=80'
+              },
+              { 
+                name: 'Holistic Wellness', 
+                slug: 'holistic-wellness', 
+                desc: 'Calming herbal teas & aromatherapy self-care kits',
+                image: 'https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=800&auto=format&fit=crop&q=80'
+              }
             ].map((cat) => (
               <Link 
                 key={cat.slug} 
                 href={`/categories/${cat.slug}`}
-                className="group bg-[#F8F7F0] border border-[#E8EBDD] rounded-xl p-6 hover:shadow-lg transition-all flex flex-col justify-between space-y-4"
+                className="group bg-[#F8F7F0] border border-[#E8EBDD] rounded-xl p-5 hover:shadow-lg transition-all flex flex-col justify-between space-y-4"
               >
-                <div className="h-40 bg-[#E8EBDD] rounded-lg flex items-center justify-center text-[#25452D] font-['Cormorant_Garamond'] font-bold text-xl group-hover:scale-[1.02] transition-transform">
-                  {cat.name}
+                <div className="h-44 rounded-lg overflow-hidden relative">
+                  <img
+                    src={cat.image}
+                    alt={cat.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#202820]/60 via-transparent to-transparent flex items-end p-3">
+                    <span className="text-white font-['Cormorant_Garamond'] font-bold text-lg drop-shadow-xs">
+                      {cat.name}
+                    </span>
+                  </div>
                 </div>
-                <div className="space-y-2">
+                <div className="space-y-1">
                   <h3 className="font-['Cormorant_Garamond'] text-xl font-bold text-[#25452D] group-hover:text-[#56734A] transition-colors">
                     {cat.name}
                   </h3>
@@ -146,8 +180,16 @@ export default function HomePage() {
 
       <section className="py-20 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-[#FFFFFF] border border-[#E8EBDD] rounded-2xl p-8 sm:p-12 grid grid-cols-1 lg:grid-cols-3 gap-10 items-center shadow-sm">
-          <div className="h-72 bg-[#E8EBDD] rounded-xl flex items-center justify-center text-[#25452D] font-['Cormorant_Garamond'] font-bold text-xl">
-            Dr. S. Sathya Portrait
+          <div className="h-80 rounded-xl overflow-hidden shadow-md relative group border border-[#E8EBDD]">
+            <img
+              src="https://images.unsplash.com/photo-1594824813589-9c5c2fc926ff?w=800&auto=format&fit=crop&q=80"
+              alt="Dr. S. Sathya, B.S.M.S"
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#202820]/60 via-transparent to-transparent flex items-end p-4">
+              <span className="text-white text-xs font-semibold">Dr. S. Sathya, B.S.M.S • Siddha Specialist</span>
+            </div>
           </div>
           <div className="lg:col-span-2 space-y-6">
             <div className="space-y-1">

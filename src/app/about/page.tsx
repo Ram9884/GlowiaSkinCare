@@ -16,8 +16,15 @@ export default function AboutPage() {
         </div>
 
         <div className="bg-white border border-[#E8EBDD] rounded-2xl p-8 sm:p-12 grid grid-cols-1 md:grid-cols-3 gap-8 items-center shadow-sm">
-          <div className="h-64 bg-[#E8EBDD] rounded-xl flex items-center justify-center font-['Cormorant_Garamond'] font-bold text-xl text-[#25452D]">
-            Dr. S. Sathya Portrait
+          <div className="h-72 rounded-xl overflow-hidden shadow-md relative group border border-[#E8EBDD]">
+            <img
+              src="https://images.unsplash.com/photo-1594824813589-9c5c2fc926ff?w=800&auto=format&fit=crop&q=80"
+              alt="Dr. S. Sathya, B.S.M.S"
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#202820]/60 via-transparent to-transparent flex items-end p-3">
+              <span className="text-white text-xs font-semibold">Dr. S. Sathya, B.S.M.S</span>
+            </div>
           </div>
           <div className="md:col-span-2 space-y-4">
             <div className="space-y-1">

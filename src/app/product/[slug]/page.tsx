@@ -41,15 +41,18 @@ export default function ProductDetailPage() {
     <div className="min-h-screen bg-[#F8F7F0] py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-          <div className="bg-white border border-[#E8EBDD] rounded-2xl h-[450px] flex items-center justify-center relative shadow-sm">
-            <span className="font-['Cormorant_Garamond'] text-2xl font-bold text-[#25452D]">
-              {product.name} Image
-            </span>
-            <span className="absolute top-4 left-4 bg-[#E8EBDD] text-[#25452D] text-xs font-semibold px-3 py-1 rounded-md">
+          <div className="bg-white border border-[#E8EBDD] rounded-2xl h-[450px] overflow-hidden relative shadow-sm group">
+            <img
+              src={product.image}
+              alt={product.name}
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#202820]/40 via-transparent to-transparent pointer-events-none" />
+            <span className="absolute top-4 left-4 bg-white/90 backdrop-blur-xs text-[#25452D] text-xs font-semibold px-3 py-1 rounded-md shadow-xs">
               {product.category.replace('-', ' ').toUpperCase()}
             </span>
             {product.originalPrice && (
-              <span className="absolute top-4 right-4 bg-[#56734A] text-white text-xs font-semibold px-3 py-1 rounded-md">
+              <span className="absolute top-4 right-4 bg-[#56734A] text-white text-xs font-semibold px-3 py-1 rounded-md shadow-xs">
                 Special Offer
               </span>
             )}

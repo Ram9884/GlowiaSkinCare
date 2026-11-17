@@ -165,8 +165,12 @@ export default function OrderSuccessPage() {
               {lastOrder.items.map((item) => (
                 <div key={item.product.id} className="flex items-center justify-between gap-4 py-2 border-b border-[#E8EBDD]/50 text-xs">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-[#E8EBDD] rounded-md flex items-center justify-center font-['Cormorant_Garamond'] font-bold text-[#25452D] text-xs shrink-0">
-                      {item.product.name.charAt(0)}
+                    <div className="w-12 h-12 bg-[#E8EBDD] rounded-md overflow-hidden shrink-0 relative">
+                      <img
+                        src={item.product.image}
+                        alt={item.product.name}
+                        className="w-full h-full object-cover"
+                      />
                     </div>
                     <div>
                       <p className="font-bold text-[#202820] text-sm">{item.product.name}</p>

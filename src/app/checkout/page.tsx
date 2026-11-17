@@ -653,8 +653,12 @@ export default function CheckoutPage() {
                 {items.map((item) => (
                   <div key={item.product.id} className="flex items-center justify-between gap-3 text-xs">
                     <div className="flex items-center gap-3 min-w-0">
-                      <div className="w-12 h-12 bg-[#E8EBDD] rounded-lg flex items-center justify-center shrink-0 p-1 text-center font-['Cormorant_Garamond'] font-bold text-[#25452D] text-[10px]">
-                        {item.product.name.split(' ')[0]}
+                      <div className="w-12 h-12 bg-[#E8EBDD] rounded-lg overflow-hidden shrink-0 relative">
+                        <img
+                          src={item.product.image}
+                          alt={item.product.name}
+                          className="w-full h-full object-cover"
+                        />
                       </div>
                       <div className="min-w-0">
                         <p className="font-semibold text-[#202820] truncate">{item.product.name}</p>

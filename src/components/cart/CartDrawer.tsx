@@ -122,10 +122,12 @@ export default function CartDrawer() {
                   className="bg-white border border-[#E8EBDD] rounded-xl p-3.5 flex gap-3.5 shadow-xs"
                 >
                   {/* Thumbnail */}
-                  <div className="w-20 h-20 bg-[#E8EBDD] rounded-lg flex items-center justify-center shrink-0 p-2 text-center">
-                    <span className="font-['Cormorant_Garamond'] text-[11px] font-bold text-[#25452D] line-clamp-2">
-                      {item.product.name}
-                    </span>
+                  <div className="w-20 h-20 bg-[#E8EBDD] rounded-lg overflow-hidden shrink-0 relative">
+                    <img
+                      src={item.product.image}
+                      alt={item.product.name}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
 
                   {/* Info & controls */}

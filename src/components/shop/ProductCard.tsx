@@ -28,13 +28,16 @@ export default function ProductCard({ product }: ProductCardProps) {
   return (
     <div className="group bg-[#FFFFFF] border border-[#E8EBDD] rounded-xl overflow-hidden flex flex-col justify-between shadow-sm hover:shadow-md transition-all">
       <Link href={`/product/${product.slug}`} className="block">
-        <div className="h-64 bg-[#E8EBDD] flex items-center justify-center relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-t from-[#202820]/10 to-transparent" />
-          <span className="font-['Cormorant_Garamond'] text-lg font-bold text-[#25452D] px-4 text-center">
-            {product.name}
-          </span>
+        <div className="h-64 bg-[#E8EBDD] relative overflow-hidden">
+          <img
+            src={product.image}
+            alt={product.name}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#202820]/30 via-transparent to-transparent pointer-events-none" />
           {product.originalPrice && (
-            <span className="absolute top-3 right-3 bg-[#56734A] text-white text-[10px] font-semibold px-2 py-1 rounded">
+            <span className="absolute top-3 right-3 bg-[#56734A] text-white text-[10px] font-semibold px-2 py-1 rounded shadow-xs">
               Sale
             </span>
           )}

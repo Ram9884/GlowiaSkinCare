@@ -46,6 +46,21 @@ export default function ContactPage() {
             </p>
           </div>
         </div>
+
+        <div className="rounded-2xl overflow-hidden shadow-sm border border-[#E8EBDD] relative h-64 sm:h-80">
+          <img
+            src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=1200&auto=format&fit=crop&q=80"
+            alt="Glowia Wellness Clinic Consultation Sanctuary, Kallakurichi"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#202820]/75 via-[#202820]/30 to-transparent flex flex-col justify-end p-6 sm:p-8 text-white">
+            <span className="text-xs uppercase tracking-widest text-[#E8EBDD] font-semibold">Specialist Clinic</span>
+            <h3 className="font-['Cormorant_Garamond'] text-2xl sm:text-3xl font-bold">Kallakurichi Holistic Centre</h3>
+            <p className="text-xs text-[#E8EBDD]/90 mt-1 max-w-lg">
+              Visit our peaceful consultation space on Durugam Road for individualized Siddha diagnostics and botanical therapy.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );

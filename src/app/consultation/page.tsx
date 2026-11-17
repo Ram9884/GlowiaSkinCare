@@ -90,11 +90,18 @@ export default function ConsultationPage() {
                 <p>7:00 PM – 8:00 PM</p>
               </div>
             </div>
-            <div className="flex items-start gap-3 text-sm text-[#737B70]">
-              <UserCheck className="w-5 h-5 text-[#56734A] shrink-0 mt-0.5" />
+            <div className="flex items-center gap-3 text-sm text-[#737B70] pt-1">
+              <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-[#56734A] shrink-0">
+                <img
+                  src="https://images.unsplash.com/photo-1594824813589-9c5c2fc926ff?w=400&auto=format&fit=crop&q=80"
+                  alt="Dr. S. Sathya"
+                  className="w-full h-full object-cover"
+                />
+              </div>
               <div>
-                <p className="font-medium text-[#202820]">Specialist:</p>
-                <p>Dr. S. Sathya, B.S.M.S</p>
+                <p className="font-medium text-[#202820]">Specialist In-Charge:</p>
+                <p className="font-bold text-[#25452D]">Dr. S. Sathya, B.S.M.S</p>
+                <p className="text-[11px] text-[#56734A]">Siddha & Holistic Medicine Specialist</p>
               </div>
             </div>
           </div>
