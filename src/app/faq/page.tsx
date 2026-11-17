@@ -22,13 +22,13 @@ const faqs: FaqItem[] = [
   },
   {
     category: 'Products',
-    q: 'How can I explore and enquire about products?',
-    a: 'You can browse our complete catalogue on the Shop page and use the WhatsApp enquiry buttons on any product card or detail page to connect directly with us.'
+    q: 'How can I explore and purchase products?',
+    a: 'You can browse our complete catalogue on the Shop page, click "Add to Bag" on any product, and proceed through our interactive demo checkout with address filing and simulated payment (UPI, Card, Net Banking, or COD).'
   },
   {
     category: 'Products',
-    q: 'Are the products available for direct online purchase?',
-    a: 'This website is a frontend demonstration. Products and prices shown are illustrative concepts for demonstration purposes.'
+    q: 'Are payments real or simulated?',
+    a: 'This website features an interactive demo store and payment simulator. You can test the full checkout flow and place sample orders without any real monetary charges.'
   },
   {
     category: 'Consultation',

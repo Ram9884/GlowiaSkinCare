@@ -1,18 +1,28 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import { Product } from '../../types/product';
-import { MessageCircle } from 'lucide-react';
-import { openWhatsApp, getProductEnquiryMessage } from '../../lib/whatsapp';
+import { ShoppingBag, Check } from 'lucide-react';
+import { useCart } from '../../context/CartContext';
 
 interface ProductCardProps {
   product: Product;
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
-  const handleWhatsAppEnquiry = (e: React.MouseEvent) => {
+  const { addToCart, items, openCart } = useCart();
+  const [justAdded, setJustAdded] = useState(false);
+
+  const existingItem = items.find((item) => item.product.id === product.id);
+
+  const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
-    openWhatsApp(getProductEnquiryMessage(product.name));
+    addToCart(product, 1);
+    setJustAdded(true);
+    setTimeout(() => {
+      setJustAdded(false);
+    }, 1600);
   };
 
   return (
@@ -51,14 +61,41 @@ export default function ProductCard({ product }: ProductCardProps) {
         </div>
       </Link>
 
-      <div className="p-5 pt-0">
+      <div className="p-5 pt-0 space-y-2">
         <button
-          onClick={handleWhatsAppEnquiry}
-          className="w-full flex items-center justify-center gap-2 bg-[#25452D] hover:bg-[#56734A] text-white py-2.5 rounded-md text-xs font-medium transition-colors"
+          onClick={handleAddToCart}
+          className={`w-full flex items-center justify-center gap-2 py-2.5 rounded-md text-xs font-medium transition-all ${
+            justAdded 
+              ? 'bg-[#56734A] text-white ring-2 ring-[#56734A]/30'
+              : 'bg-[#25452D] hover:bg-[#56734A] text-white'
+          }`}
         >
-          <MessageCircle className="w-4 h-4" />
-          <span>Enquire on WhatsApp</span>
+          {justAdded ? (
+            <>
+              <Check className="w-4 h-4 animate-in zoom-in" />
+              <span>Added to Bag!</span>
+            </>
+          ) : (
+            <>
+              <ShoppingBag className="w-4 h-4" />
+              <span>
+                {existingItem ? `Add More (${existingItem.quantity} in Bag)` : 'Add to Bag'}
+              </span>
+            </>
+          )}
         </button>
+
+        {existingItem && (
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              openCart();
+            }}
+            className="w-full text-center text-[11px] text-[#56734A] hover:underline font-medium block"
+          >
+            View in Bag →
+          </button>
+        )}
       </div>
     </div>
   );

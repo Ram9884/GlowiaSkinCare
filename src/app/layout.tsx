@@ -3,6 +3,8 @@ import type { Metadata } from 'next';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import WhatsAppFloatingButton from '../components/layout/WhatsAppFloatingButton';
+import { CartProvider } from '../context/CartContext';
+import CartDrawer from '../components/cart/CartDrawer';
 
 export const metadata: Metadata = {
   title: 'Glowia | Natural Skincare, Haircare & Holistic Wellness',
@@ -29,12 +31,15 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
       </head>
       <body className="bg-[#F8F7F0] text-[#202820] font-['Inter'] antialiased flex flex-col min-h-screen">
-        <Navbar />
-        <main className="flex-grow">
-          {children}
-        </main>
-        <Footer />
-        <WhatsAppFloatingButton />
+        <CartProvider>
+          <Navbar />
+          <main className="flex-grow">
+            {children}
+          </main>
+          <Footer />
+          <WhatsAppFloatingButton />
+          <CartDrawer />
+        </CartProvider>
       </body>
     </html>
   );

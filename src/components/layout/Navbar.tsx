@@ -2,15 +2,17 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Search, Menu, X, PhoneCall } from 'lucide-react';
+import { Search, Menu, X, PhoneCall, ShoppingBag } from 'lucide-react';
 import AnnouncementBar from './AnnouncementBar';
 import MobileMenu from './MobileMenu';
+import { useCart } from '../../context/CartContext';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const { totalCount, openCart } = useCart();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -68,6 +70,19 @@ export default function Navbar() {
               aria-label="Search"
             >
               <Search className="w-5 h-5" />
+            </button>
+
+            <button
+              onClick={openCart}
+              className="p-2 text-[#202820] hover:text-[#56734A] transition-colors relative"
+              aria-label="Shopping Bag"
+            >
+              <ShoppingBag className="w-5 h-5" />
+              {totalCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-[#56734A] text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                  {totalCount > 99 ? '99+' : totalCount}
+                </span>
+              )}
             </button>
 
             <Link 

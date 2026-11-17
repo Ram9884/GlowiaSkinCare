@@ -1,7 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { X, PhoneCall } from 'lucide-react';
+import { X, PhoneCall, ShoppingBag } from 'lucide-react';
+import { useCart } from '../../context/CartContext';
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -9,7 +10,13 @@ interface MobileMenuProps {
 }
 
 export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
+  const { totalCount, openCart } = useCart();
   if (!isOpen) return null;
+
+  const handleOpenCart = () => {
+    onClose();
+    openCart();
+  };
 
   return (
     <div className="fixed inset-0 z-50 bg-[#202820]/50 backdrop-blur-sm flex justify-end">
@@ -22,6 +29,18 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         </div>
 
         <div className="flex flex-col space-y-4 py-6 text-base font-medium text-[#202820]">
+          <button 
+            onClick={handleOpenCart} 
+            className="flex items-center justify-between text-left text-base font-medium text-[#25452D] bg-[#E8EBDD]/60 px-4 py-2.5 rounded-lg hover:bg-[#E8EBDD] transition-colors"
+          >
+            <span className="flex items-center gap-2">
+              <ShoppingBag className="w-5 h-5 text-[#56734A]" />
+              <span>Shopping Bag</span>
+            </span>
+            <span className="bg-[#56734A] text-white text-xs px-2.5 py-0.5 rounded-full font-bold">
+              {totalCount}
+            </span>
+          </button>
           <Link href="/" onClick={onClose} className="hover:text-[#56734A]">Home</Link>
           <Link href="/shop" onClick={onClose} className="hover:text-[#56734A]">Shop All Products</Link>
           <div className="pl-4 flex flex-col space-y-2 border-l-2 border-[#56734A]/30 text-sm">

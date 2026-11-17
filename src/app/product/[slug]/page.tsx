@@ -1,16 +1,22 @@
 'use client';
 
-import { notFound, useParams } from 'next/navigation';
+import { useState } from 'react';
+import { notFound, useParams, useRouter } from 'next/navigation';
 import { products } from '../../../data/products';
-import { MessageCircle, CheckCircle2 } from 'lucide-react';
-import { openWhatsApp, getProductEnquiryMessage } from '../../../lib/whatsapp';
+import { ShoppingBag, CheckCircle2, Check, Plus, Minus, ShieldCheck, Truck, Sparkles } from 'lucide-react';
 import ProductCard from '../../../components/shop/ProductCard';
+import { useCart } from '../../../context/CartContext';
 
 export default function ProductDetailPage() {
   const params = useParams();
+  const router = useRouter();
   const slug = params?.slug as string;
 
   const product = products.find(p => p.slug === slug);
+
+  const [quantity, setQuantity] = useState(1);
+  const [justAdded, setJustAdded] = useState(false);
+  const { addToCart, openCart } = useCart();
 
   if (!product) {
     notFound();
@@ -18,8 +24,17 @@ export default function ProductDetailPage() {
 
   const relatedProducts = products.filter(p => p.category === product.category && p.id !== product.id).slice(0, 3);
 
-  const handleWhatsAppEnquiry = () => {
-    openWhatsApp(getProductEnquiryMessage(product.name));
+  const handleAddToCart = () => {
+    addToCart(product, quantity);
+    setJustAdded(true);
+    setTimeout(() => {
+      setJustAdded(false);
+    }, 1800);
+  };
+
+  const handleBuyNow = () => {
+    addToCart(product, quantity);
+    router.push('/checkout');
   };
 
   return (
@@ -33,6 +48,11 @@ export default function ProductDetailPage() {
             <span className="absolute top-4 left-4 bg-[#E8EBDD] text-[#25452D] text-xs font-semibold px-3 py-1 rounded-md">
               {product.category.replace('-', ' ').toUpperCase()}
             </span>
+            {product.originalPrice && (
+              <span className="absolute top-4 right-4 bg-[#56734A] text-white text-xs font-semibold px-3 py-1 rounded-md">
+                Special Offer
+              </span>
+            )}
           </div>
 
           <div className="space-y-6">
@@ -49,7 +69,7 @@ export default function ProductDetailPage() {
                   <span className="text-base text-[#737B70] line-through">₹{product.originalPrice}</span>
                 )}
                 <span className="text-xs text-[#56734A] bg-[#E8EBDD] px-2.5 py-1 rounded-md font-medium">
-                  Illustrative Demo Price
+                  Demo Price
                 </span>
               </div>
             </div>
@@ -86,14 +106,84 @@ export default function ProductDetailPage() {
               <p className="text-xs text-[#737B70] leading-relaxed">{product.usage}</p>
             </div>
 
-            <div className="pt-4">
-              <button
-                onClick={handleWhatsAppEnquiry}
-                className="w-full flex items-center justify-center gap-2 bg-[#25452D] hover:bg-[#56734A] text-white py-3.5 rounded-md text-sm font-medium transition-colors shadow-md"
-              >
-                <MessageCircle className="w-5 h-5" />
-                <span>Enquire About This Product on WhatsApp</span>
-              </button>
+            {/* Purchase & Add to Cart Controls */}
+            <div className="pt-4 border-t border-[#E8EBDD] space-y-4">
+              <div className="flex items-center gap-4">
+                <span className="text-xs font-semibold text-[#202820] uppercase">Quantity:</span>
+                <div className="flex items-center border border-[#E8EBDD] rounded-md bg-white">
+                  <button
+                    onClick={() => setQuantity(q => Math.max(1, q - 1))}
+                    className="p-2 text-sm text-[#202820] hover:text-[#56734A]"
+                    aria-label="Decrease quantity"
+                  >
+                    <Minus className="w-4 h-4" />
+                  </button>
+                  <span className="px-4 py-1 text-sm font-semibold text-[#202820] min-w-10 text-center">
+                    {quantity}
+                  </span>
+                  <button
+                    onClick={() => setQuantity(q => q + 1)}
+                    className="p-2 text-sm text-[#202820] hover:text-[#56734A]"
+                    aria-label="Increase quantity"
+                  >
+                    <Plus className="w-4 h-4" />
+                  </button>
+                </div>
+                <span className="text-xs text-[#737B70]">
+                  Subtotal: <strong className="text-[#25452D]">₹{product.price * quantity}</strong>
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <button
+                  onClick={handleAddToCart}
+                  className={`w-full flex items-center justify-center gap-2 py-3.5 rounded-md text-sm font-semibold transition-all ${
+                    justAdded
+                      ? 'bg-[#56734A] text-white ring-2 ring-[#56734A]/30'
+                      : 'bg-[#25452D] hover:bg-[#56734A] text-white shadow-md'
+                  }`}
+                >
+                  {justAdded ? (
+                    <>
+                      <Check className="w-5 h-5 animate-in zoom-in" />
+                      <span>Added to Bag!</span>
+                    </>
+                  ) : (
+                    <>
+                      <ShoppingBag className="w-5 h-5" />
+                      <span>Add to Bag</span>
+                    </>
+                  )}
+                </button>
+
+                <button
+                  onClick={handleBuyNow}
+                  className="w-full flex items-center justify-center gap-2 bg-transparent border-2 border-[#25452D] text-[#25452D] hover:bg-[#25452D] hover:text-white py-3.5 rounded-md text-sm font-semibold transition-colors"
+                >
+                  <Sparkles className="w-4 h-4" />
+                  <span>Buy Now (Instant Checkout)</span>
+                </button>
+              </div>
+
+              {justAdded && (
+                <button
+                  onClick={openCart}
+                  className="text-xs text-[#56734A] hover:underline font-medium block text-center w-full"
+                >
+                  View your bag & proceed to checkout →
+                </button>
+              )}
+
+              <div className="grid grid-cols-2 gap-3 pt-2 text-xs text-[#737B70]">
+                <div className="flex items-center gap-2 bg-white p-2.5 rounded-lg border border-[#E8EBDD]">
+                  <Truck className="w-4 h-4 text-[#56734A] shrink-0" />
+                  <span>Free delivery over ₹499</span>
+                </div>
+                <div className="flex items-center gap-2 bg-white p-2.5 rounded-lg border border-[#E8EBDD]">
+                  <ShieldCheck className="w-4 h-4 text-[#56734A] shrink-0" />
+                  <span>Secure Demo Checkout</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
